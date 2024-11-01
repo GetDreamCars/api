@@ -1,0 +1,33 @@
+{
+  "title": "Advert title",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "advertiserType": "private",
+  "contact": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "phoneNumber": "111222333",
+    "city": "Warszawa"
+  },
+  "params": {
+    "vin": "11111111111111111",
+    "manufactureYear": 2018,
+    "brand": "Ford",
+    "model": "Focus",
+    "enginePower": "86",
+    "engineCapacity": "1596",
+    "doorCount": 4,
+    "gearbox": "manual",
+    "generation": "gen-mk4-2018",
+    "version": "ver-1-6-gold-x",
+    "mileage": 199000,
+    "fuelType": "petrol",
+    "bodyType": "sedan",
+    "color": "white",
+    "price": {
+      "amount": 20000,
+      "currency": "PLN",
+      "grossNet": "gross"
+    },
+    "video": "https://www.youtube.com/watch?v=code"
+  }
+}
