@@ -2,6 +2,8 @@
   "title": "Advert title",
   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   "advertiserType": "private",
+  "validTo": "2024-12-02T14:30:00",
+  "imageCollectionId": 1,
   "contact": {
     "firstName": "John",
     "lastName": "Doe",

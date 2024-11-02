@@ -7,7 +7,8 @@ CREATE TABLE advert
     engine_power    INTEGER,
     mileage         INTEGER,
     manufacture_year INTEGER,
-    created_at      TIMESTAMP,
+    image_collection_id INTEGER,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     valid_to        TIMESTAMP,
     body_type       VARCHAR(255),
     brand           VARCHAR(255),
@@ -30,3 +31,17 @@ CREATE TABLE advert
     gearbox         VARCHAR(20),
     status          VARCHAR(20)
 );
+
+CREATE TABLE image_collection (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY
+);
+
+CREATE TABLE image (
+   id BIGINT AUTO_INCREMENT PRIMARY KEY,
+   url VARCHAR(255) NOT NULL,
+   image_collection_id BIGINT,
+   FOREIGN KEY (image_collection_id) REFERENCES image_collection(id) ON DELETE CASCADE
+);
+
+ALTER TABLE advert
+ADD FOREIGN KEY (image_collection_id) REFERENCES image_collection(id);

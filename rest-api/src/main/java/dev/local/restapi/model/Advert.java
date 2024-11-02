@@ -9,6 +9,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,4 +40,8 @@ public class Advert {
     private Contact contact;
     @Embedded
     private Params params;
+
+    @ManyToOne
+    @JoinColumn(name = "image_collection_id")
+    private ImageCollection imageCollection;
 }

@@ -1,7 +1,64 @@
-# Ignore build directories
-/build/
+# Compiled class files
+*.class
+
+# Maven target directory
 /target/
 
-# Ignore IDE-specific files
+# IntelliJ IDEA files
 .idea/
-*.iml
+/*.iml
+*.iws
+
+# Logs
+/logs/
+/*.log
+
+# Runtime files
+*.pid
+*.seed
+
+# Temporary files and directories
+*.tmp
+*.temp
+*.swp
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Maven wrapper files
+.mvn/wrapper/maven-wrapper.jar
+
+# H2 database files if stored locally (optional, only if you have local storage)
+/*.h2.db
+
+# Eclipse files
+.project
+.classpath
+.settings/
+
+# Spring Boot application configuration (optional, if you don't want to include sensitive info)
+/src/main/resources/application-*.yml
+/src/main/resources/application-*.properties
+
+# Node modules (if using any frontend with Node.js)
+/node_modules/
+
+# Exclude binary or cache files
+*.jar
+*.war
+*.ear
+
+# Backup files
+*.bak
+
+# Coverage and report files (for testing)
+coverage/
+*.lcov
+/test-results/
+out/
+.jacoco/
+jacoco.exec
+
+# Java IntelliJ specific
+out/

@@ -1,4 +1,4 @@
-package dev.local.restapi.respository;
+package dev.local.restapi.repository;
 
 import dev.local.restapi.model.Advert;
 import org.springframework.data.domain.Page;

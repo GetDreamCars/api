@@ -3,7 +3,8 @@ package dev.local.restapi.service;
 import dev.local.restapi.model.Advert;
 import dev.local.restapi.model.dto.AdvertRequestDto;
 import dev.local.restapi.model.enums.AdvertStatus;
-import dev.local.restapi.respository.AdvertRepository;
+import dev.local.restapi.repository.AdvertRepository;
+import dev.local.restapi.repository.ImageCollectionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,16 @@ import java.util.Optional;
 public class AdvertService {
 
     private final AdvertRepository advertRepository;
+    private final ImageCollectionRepository imageCollectionRepository;
 
     public Advert saveAdvert(AdvertRequestDto dto) {
         Advert advert = mapToAdvert(dto);
         advert.setCreatedAt(LocalDateTime.now());
-        advert.setValidTo(LocalDateTime.now().plusMonths(1));
         advert.setStatus(AdvertStatus.ACTIVE);
+        if (dto.getImageCollectionId() != null) {
+            imageCollectionRepository.findById(Long.valueOf(dto.getImageCollectionId()))
+                    .ifPresent(advert::setImageCollection);
+        }
         return advertRepository.save(advert);
     }
 
@@ -46,6 +51,7 @@ public class AdvertService {
         advert.setAdvertiserType(dto.getAdvertiserType());
         advert.setContact(dto.getContact());
         advert.setParams(dto.getParams());
+        advert.setValidTo(dto.getValidTo());
         return advert;
     }
 }

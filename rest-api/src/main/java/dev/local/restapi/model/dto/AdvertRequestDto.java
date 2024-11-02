@@ -5,6 +5,8 @@ import dev.local.restapi.model.Params;
 import dev.local.restapi.model.enums.AdvertiserType;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class AdvertRequestDto {
 
@@ -13,4 +15,6 @@ public class AdvertRequestDto {
     private AdvertiserType advertiserType;
     private Contact contact;
     private Params params;
+    private LocalDateTime validTo;
+    private Integer imageCollectionId;
 }
