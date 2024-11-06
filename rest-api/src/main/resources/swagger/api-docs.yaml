@@ -1,0 +1,319 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/images/collections:
+    post:
+      tags:
+      - image-controller
+      summary: Create an image collection
+      description: Uploads images to Cloudinary and creates an image collection.
+      operationId: createImageCollection
+      requestBody:
+        description: List of image files to upload
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+              format: binary
+        required: true
+      responses:
+        "200":
+          description: Image collection created successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageCollection"
+  /api/adverts:
+    get:
+      tags:
+      - advert-controller
+      summary: Get all adverts
+      description: Fetches a paginated list of adverts based on the specified page
+        and limit.
+      operationId: getAdverts
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: List of adverts retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Advert"
+    post:
+      tags:
+      - advert-controller
+      summary: Create a new advert
+      description: Creates a new advert based on the provided data and returns the
+        saved advert.
+      operationId: createAdvert
+      requestBody:
+        description: Advert data to create a new advert
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdvertRequestDto"
+        required: true
+      responses:
+        "201":
+          description: Advert created successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Advert"
+  /api/images/collections/{id}:
+    get:
+      tags:
+      - image-controller
+      summary: Get image collection by ID
+      description: Fetches an image collection by its unique ID.
+      operationId: getImageCollection
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Image collection not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageCollection"
+        "200":
+          description: Image collection retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ImageCollection"
+    delete:
+      tags:
+      - image-controller
+      summary: Delete image collection by ID
+      description: Deletes an image collection by its unique ID.
+      operationId: deleteImageCollection
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "204":
+          description: Image collection deleted successfully
+        "404":
+          description: Image collection not found
+  /api/adverts/{id}:
+    get:
+      tags:
+      - advert-controller
+      summary: Get advert by ID
+      description: Fetches an advert by its unique ID.
+      operationId: getAdvert
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Advert retrieved successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Advert"
+        "404":
+          description: Advert not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Advert"
+    delete:
+      tags:
+      - advert-controller
+      summary: Delete advert by ID
+      description: Deletes an advert by its unique ID.
+      operationId: deleteAdvert
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "404":
+          description: Advert not found
+        "204":
+          description: Advert deleted successfully
+components:
+  schemas:
+    Image:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        url:
+          type: string
+    ImageCollection:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        images:
+          type: array
+          items:
+            $ref: "#/components/schemas/Image"
+    AdvertRequestDto:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        advertiserType:
+          type: string
+          enum:
+          - private
+          - dealer
+        contact:
+          $ref: "#/components/schemas/Contact"
+        params:
+          $ref: "#/components/schemas/Params"
+        validTo:
+          type: string
+          format: date-time
+        imageCollectionId:
+          type: integer
+          format: int32
+    Contact:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        phoneNumber:
+          type: string
+        city:
+          type: string
+    Params:
+      type: object
+      properties:
+        vin:
+          type: string
+        manufactureYear:
+          type: integer
+          format: int32
+        brand:
+          type: string
+        model:
+          type: string
+        enginePower:
+          type: integer
+          format: int32
+        engineCapacity:
+          type: integer
+          format: int32
+        doorCount:
+          type: integer
+          format: int32
+        generation:
+          type: string
+        version:
+          type: string
+        mileage:
+          type: integer
+          format: int32
+        bodyType:
+          type: string
+        color:
+          type: string
+        video:
+          type: string
+        fuelType:
+          type: string
+          enum:
+          - petrol
+          - diesel
+          - electric
+          - hybrid
+        gearbox:
+          type: string
+          enum:
+          - manual
+          - automatic
+          - semi-automatic
+        price:
+          $ref: "#/components/schemas/Price"
+    Price:
+      type: object
+      properties:
+        amount:
+          type: integer
+          format: int32
+        currency:
+          type: string
+          enum:
+          - PLN
+          - EUR
+        grossNet:
+          type: string
+    Advert:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        validTo:
+          type: string
+          format: date-time
+        advertiserType:
+          type: string
+          enum:
+          - private
+          - dealer
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          - paused
+        contact:
+          $ref: "#/components/schemas/Contact"
+        params:
+          $ref: "#/components/schemas/Params"
+        imageCollection:
+          $ref: "#/components/schemas/ImageCollection"
