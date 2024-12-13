@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class Price {
 
-    private int amount;
+    private Integer amount;
     @Enumerated(EnumType.STRING)
     private Currency currency;
     private String grossNet;

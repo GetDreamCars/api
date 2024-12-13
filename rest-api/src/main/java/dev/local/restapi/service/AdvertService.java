@@ -5,7 +5,10 @@ import dev.local.restapi.model.dto.AdvertRequestDto;
 import dev.local.restapi.model.enums.AdvertStatus;
 import dev.local.restapi.repository.AdvertRepository;
 import dev.local.restapi.repository.ImageCollectionRepository;
+import dev.local.restapi.search.AdvertSpecification;
+import dev.local.restapi.search.SearchAdvertRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +44,10 @@ public class AdvertService {
 
     public void deleteAdvert(Long id) {
         advertRepository.deleteById(id);
+    }
+
+    public Page<Advert> searchAdverts(SearchAdvertRequestDto searchDto, Pageable pageable) {
+        return advertRepository.findAll(AdvertSpecification.search(searchDto), pageable);
     }
 
     //TODO add some mapper class with two ways mapping

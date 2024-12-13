@@ -15,15 +15,15 @@ import lombok.Setter;
 public class Params {
 
     private String vin;
-    private int manufactureYear;
+    private Integer manufactureYear;
     private String brand;
     private String model;
-    private int enginePower;
-    private int engineCapacity;
-    private int doorCount;
+    private Integer enginePower;
+    private Integer engineCapacity;
+    private Integer doorCount;
     private String generation;
     private String version;
-    private int mileage;
+    private Integer mileage;
     private String bodyType;
     private String color;
     private String video;

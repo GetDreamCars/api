@@ -2,12 +2,14 @@ package dev.local.restapi.web;
 
 import dev.local.restapi.model.Advert;
 import dev.local.restapi.model.dto.AdvertRequestDto;
+import dev.local.restapi.search.SearchAdvertRequestDto;
 import dev.local.restapi.service.AdvertService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -66,5 +68,15 @@ public class AdvertController {
     public ResponseEntity<Void> deleteAdvert(@PathVariable Long id) {
         advertService.deleteAdvert(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/search")
+    @Operation(summary = "Search adverts", description = "Search adverts based on various criteria including ranges for year, price, and engine power.")
+    @ApiResponse(responseCode = "200", description = "Search results retrieved successfully")
+    public Page<Advert> searchAdverts(@RequestBody SearchAdvertRequestDto searchDto,
+                                      @RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "10") int limit) {
+        Pageable pageable = PageRequest.of(page, limit);
+        return advertService.searchAdverts(searchDto, pageable);
     }
 }
